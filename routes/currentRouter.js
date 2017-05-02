@@ -17,18 +17,7 @@ currentRouter.route('/')
 })
 .put(function (req, res, next) {
     currents.findByIdAndUpdate("59073e448e403333605ac454", {
-        $inc: {current:1}
-    }, function (err, current) {
-        if (err) next(err);
-        res.json(current);
-    });
-});
-currentRouter.route('/reset/:value')
-.put(function (req, res, next) {
-    currents.findByIdAndUpdate("59073e448e403333605ac454", {
-        $set: {"current":parseInt(req.params.value,10)}
-    }, {
-        new: true
+        $set: req.body
     }, function (err, current) {
         if (err) next(err);
         res.json(current);
