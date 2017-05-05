@@ -1,26 +1,23 @@
 var express = require('express');
 
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var displays= require('../models/display');
-var Verify=require('./verify');
+//var mongoose = require('mongoose');
+//var displays= require('../models/display');
+//var Verify=require('./verify');
+var dis={
+    display:1
+};
 var displayRouter = express.Router();
 
 displayRouter.use(bodyParser.json());
 
 displayRouter.route('/')
 .get(function (req, res, next) {
-    displays.findById("59037a923ef3875aca70c3d5",function (err, display) {
-        if (err) next(err);
-        res.json(display);
-        });
+    res.send(dis);
 })
 .put(function (req, res, next) {
-    displays.findByIdAndUpdate("59037a923ef3875aca70c3d5", {
-        $set: req.body
-    }, function (err, display) {
-        if (err) next(err);
-        res.json(display);
-    });
+    dis.display=req.body.display;
+    res.send(dis);
 });
+
 module.exports=displayRouter;
