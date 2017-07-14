@@ -16,8 +16,10 @@ currentRouter.route('/')
     res.send(cur);
 })
 .put(function (req, res, next) {
+    var io = req.app.get('socketio');
     cur.current=req.body.current;
     res.send(cur);
+    io.emit('current',cur);
 });
 
 module.exports=currentRouter;

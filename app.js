@@ -1,22 +1,23 @@
+//require('dotenv').config()
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 var config = require('./config');
 
-mongoose.connect(config.mongoUrl);
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-    // we're connected!
-    console.log("Connected correctly to server");
-});
+// mongoose.connect(config.mongoUrl);
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function () {
+//     // we're connected!
+//     console.log("Connected correctly to server");
+// });
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -25,6 +26,8 @@ var currentRouter = require("./routes/currentRouter");
 
 
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

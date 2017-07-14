@@ -16,8 +16,10 @@ displayRouter.route('/')
     res.send(dis);
 })
 .put(function (req, res, next) {
+    var io = req.app.get('socketio');
     dis.display=req.body.display;
     res.send(dis);
+    io.emit('display',dis);
 });
 
 module.exports=displayRouter;
